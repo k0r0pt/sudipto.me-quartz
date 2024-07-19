@@ -22,7 +22,8 @@ interface Options {
   prettyLinks: boolean
   openLinksInNewTab: boolean
   lazyLoad: boolean
-  externalLinkIcon: boolean
+  externalLinkIcon: boolean,
+  externalLinkNofollow: boolean
 }
 
 const defaultOptions: Options = {
@@ -31,6 +32,7 @@ const defaultOptions: Options = {
   openLinksInNewTab: false,
   lazyLoad: false,
   externalLinkIcon: true,
+  externalLinkNofollow: false 
 }
 
 export const CrawlLinks: QuartzTransformerPlugin<Partial<Options> | undefined> = (userOpts) => {
@@ -61,8 +63,11 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options> | undefined> =
                 const isExternal = isAbsoluteUrl(dest)
                 classes.push(isExternal ? "external" : "internal")
 
-                if (isExternal && opts.externalLinkIcon) {
+                if (isExternal && opts.externalLinkNofollow) {
                   node.properties.rel = "external nofollow";
+                }
+
+                if (isExternal && opts.externalLinkIcon) {
                   node.children.push({
                     type: "element",
                     tagName: "svg",
