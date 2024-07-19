@@ -57,8 +57,7 @@ export default ((userOpts?: Partial<Options>) => {
     // Execute all functions (sort, filter, map) that were provided (if none were provided, only default "sort" is applied)
     if (opts.order) {
       // Order is important, use loop with index instead of order.map()
-      for (let i = 0; i < opts.order.length; i++) {
-        const functionName = opts.order[i]
+      for (const functionName of opts.order) {
         if (functionName === "map") {
           fileTree.map(opts.mapFn)
         } else if (functionName === "sort") {
@@ -79,11 +78,13 @@ export default ((userOpts?: Partial<Options>) => {
     cfg,
     allFiles,
     displayClass,
+    className,
+    specialId,
     fileData,
   }: QuartzComponentProps) => {
     constructFileTree(allFiles)
     return (
-      <div class={classNames(displayClass, "explorer")}>
+      <div id={specialId ?? "explorer"} className={classNames(displayClass, "explorer", className)}>
         <button
           type="button"
           id="explorer"
