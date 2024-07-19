@@ -1,5 +1,15 @@
 @use "../../styles/variables.scss" as *;
 
+#mobileExplorer.full-page {
+  z-index: 900;
+  display: none;
+  top: 100px !important;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: var(--light);
+}
+
 button#explorer {
   all: unset;
   background-color: transparent;
