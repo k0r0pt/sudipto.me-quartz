@@ -68,6 +68,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options> | undefined> =
                 }
 
                 if (isExternal && opts.externalLinkIcon) {
+                  node.properties.rel = "external nofollow";
                   node.children.push({
                     type: "element",
                     tagName: "svg",
